@@ -1,11 +1,25 @@
-var xhr = new XMLHttpRequest();
+var minhaPromise = function () {
 
-xhr.open('GET', 'https://github.com/users/diego3g');
-xhr.send(null);
+    return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
 
-xhr.onreadystatechange = function() {
+        xhr.open('GET', 'https://github.com/users/diego3g');
+        xhr.send(null);
 
-    if(xhr.readyState ===4) {
-        console.log(JSON.parse(xhr.responseText));
-    }
+        xhr.onreadystatechange = function () {
+
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    resolve(JSON.parse(xhr.responseText));
+                } else {
+                    reject('Erro na requisição');
+                }
+
+            }
+        }
+
+    })
 }
+ minhaPromise()
+ .then(function(response){})
+ .catch(function(error){});
